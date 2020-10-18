@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-  
+import { Card, CardImg, CardImgOverlay,  CardTitle } from 'reactstrap';
+import CampsiteInfo from './CampsiteInfoComponent';
+
 class Directory extends Component {
     constructor(props) {
         super(props);
@@ -13,21 +14,7 @@ class Directory extends Component {
         this.setState({selectedCampsite: campsite}); //setState changes value of selected campsites property of state. It's updating the campsite property to campsite object thats passed into this method.
     }                                                //In React you never want to update the state directly
                                                      //Don't do this: this.state.selectedCampsite = campsite; You never want to use assignment operator = 
-                                           //Outside of constructor ALWAYS use setState
-    renderSelectedCampsite(campsite) {
-        if (campsite) {
-            return (
-                <Card>
-                    <CardImg top src={campsite.image} alt={campsite.name} />
-                    <CardBody>
-                        <CardTitle>{campsite.name}</CardTitle>
-                        <CardText>{campsite.description}</CardText>
-                    </CardBody>
-                </Card>
-            );
-        }
-        return <div />;
-    }                                  
+                                           //Outside of constructor ALWAYS use setState                                 
 
     render() {                                       
         const directory = this.props.campsites.map(campsite => {
@@ -44,20 +31,18 @@ class Directory extends Component {
             )
         });
 //When ready to break out of this component & send data back to parent component, it happens in this final return for the entire directory component. 
-//The first toplevel return inside the render method.     
+//The first toplevel return inside the render method. 
+
         return(
             <div className="container">
                 <div className="row">
                     {directory}
                 </div>
-                <div className="row">
-                    <div className="col-md-5 m-1">
-                        {this.renderSelectedCampsite(this.state.selectedCampsite)}
-                    </div>
-
-                </div>
+                <CampsiteInfo campsite = {this.state.selectedCampsite} />
             </div>
+            
         );
     }
 }
+
 export default Directory;
