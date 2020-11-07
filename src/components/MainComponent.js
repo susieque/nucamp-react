@@ -9,7 +9,7 @@ import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { addComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
+import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
+    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
     fetchCampsites: () => (fetchCampsites()),  //fetch campsites action creator (no arguement) is available to main component as props. Fetch campsites data as soon as main component is rendered to the dom. In class Main extends Components. Below this.
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: ()=> (fetchComments()),
@@ -62,7 +62,7 @@ class Main extends Component {   //built-in react method, part of set of Lifecyc
                   comments={this.props.comments.comments.filter(comment => comment.campsiteId === 
                   +match.params.campsiteId)} 
                   commentsErrMess={this.props.comments.errMess}
-                  addComment={this.props.addComment}
+                  postComment={this.props.postComment}
               />
           );
       };
