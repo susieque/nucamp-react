@@ -44,3 +44,29 @@ h2 {
 .navbar-dark {
   background-color: #901CAD;
 }
+/* fade effect. enter and enter-active is the transition when you mount a component. Using ease out (start fast then ease out at the end */
+.page-enter {
+  opacity: 0;
+  transform: translateX(-100%);   /*translateX means on the horizontal plane. -100% puts it to the left of page */
+}                                 /* moves the page from left to right*/
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateX(0%);  /* 0% is a normal position*/
+  transition: 300ms ease-out;
+
+}
+
+/* exit and exit active transition when unmounted. Start slow then go fast at end */
+.page-exit {
+  opacity: 1;
+}
+
+/* ease-in for something going out, ease-out for going in */
+.page-exit-active {
+opacity: 0;
+transition: 300ms ease-in;
+}
+
+/* Css properties not specific to React transition group library. The library lets us use any css we like */
+

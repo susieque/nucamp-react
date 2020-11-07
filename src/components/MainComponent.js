@@ -10,6 +10,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
     return {
@@ -70,14 +71,21 @@ class Main extends Component {   //built-in react method, part of set of Lifecyc
     return (
       <div>
           <Header />
-          <Switch>
-              <Route path='/home' component={HomePage} />
-              <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} /> } />          
-              <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-              <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-              <Route exact path='/aboutus' render={() => <About partners={this.props.partners} /> } />
-              <Redirect to='/home' />
-          </Switch>
+          <TransitionGroup>
+              <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                  <Switch>
+                      <Route path='/home' component={HomePage} />
+                      <Route exact path='/directory' render={() => <Directory campsites=
+                      {this.props.campsites} /> } />          
+                      <Route path='/directory/:campsiteId' component={CampsiteWithId} />
+                      <Route exact path='/contactus' render={() => <Contact resetFeedbackForm=
+                      {this.props.resetFeedbackForm} />} />
+                      <Route exact path='/aboutus' render={() => <About partners=
+                      {this.props.partners} /> } />
+                      <Redirect to='/home' />
+                  </Switch>
+              </CSSTransition>
+          </TransitionGroup>        
           <Footer />
       </div>
     );
